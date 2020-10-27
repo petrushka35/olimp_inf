@@ -1,22 +1,36 @@
-#include <stdlib.h>
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 using namespace std;
 
 int main()
 {
-	int x1, x2, y1, y2, r1, r2, answer;
-	
-	cin >> x1 >> y1 >> r1;
-	cin >> x2 >> y2 >> r2;
+    int counter = 0, max, min;
+    double x1, y1, x2, y2, shortest, first_s, second_s;
+    cin >> x1 >> y1 >> x2 >> y2;
+    
+    shortest = unsigned((y2 * x1 - x2 * y1) / sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));
+    
+    first_s = sqrt(x1 * x1 + y1 * y1);
+    
+    second_s = sqrt(x2 * x2 + y2 * y2);
+    
+    max = first_s;
+    min = second_s;
+    if (max < min)
+    {
+        max = second_s;
+        min = first_s;
+    }
 
-	answer = sqrt(unsigned(x2 - x1) * unsigned(x2 - x1) + unsigned(y2 - y1) * unsigned(y2 - y1));
-	if (r1 + r2 > answer)
-		cout << "YES" << endl;
-	else
-		cout << "NO" << endl;
-
-	system("pause");
-	return 0;
+    if ((2 * x1 * x1 - 2 * x1 * x2 + 2 * y1 * y1 - 2 * y1 * y2 < 0) || (2 * x2 * x2 - 2 * x1 * x2 + 2 * y2 * y2 - 2 * y1 * y2 < 0))
+        counter = max - min;
+    else {
+        counter = first_s - shortest;
+        counter += second_s - shortest;
+        if (int(shortest) == shortest)
+            counter--;
+    }
+    cout << counter;
+    return 0;
 }
